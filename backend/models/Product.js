@@ -2,7 +2,11 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose;
 
 const ProductSchema = new Schema({
-    proname: {
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    },
+    productname: {
         type: String,
         required: true
     },
@@ -13,8 +17,9 @@ const ProductSchema = new Schema({
         type: Number,
         required: true
     },
-    disprice: {
-        type: Number
+    date: {
+        type: Date,
+        default: Date.now
     }
 });
 

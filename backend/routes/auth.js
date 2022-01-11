@@ -4,10 +4,11 @@ const User = require('../models/User');
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const fetchuser = require('../middleware/fetchuser')
 const JWT_SECRET = 'lkjhgfdsa'
 
-// Route: 1 / Createing a User Using : Post : http://localhost:4000/api/auth/createuser
-router.post('/createuser', [
+// Route: 1 / Createing a User Using : Post : http://localhost:5000/api/auth/createuser
+router.post('/signup', [
     body('name', "Please Enter a Valid Name"),
     body('phone', "Please Enter 10 Digit Phone No.").isLength({ min: 10 }),
     body('email', "Please Enter a Valid Email Address").isEmail(),
@@ -51,7 +52,7 @@ router.post('/createuser', [
 
 })
 
-// Route 2 : Login the User Using : Post : http://localhost:4000/api/auth/login
+// Route 2 : Login the User Using : Post : http://localhost:5000/api/auth/login
 router.post('/login', [
     body('email', "Please Enter a Valid Email").isEmail(),
     body('password', "Please connet be Blank").exists()
@@ -72,7 +73,7 @@ router.post('/login', [
         }
 
         const passwordCompare = await bcrypt.compare(password, user.password);
-        
+
         if (!passwordCompare) {
             return res.status(400).json({ "error": "Please Enter Currect Email or Password" })
         }
@@ -90,6 +91,18 @@ router.post('/login', [
         console.error(error.message);
         res.status(500).send("some error occured")
     }
+})
+
+// Route 2 : Showing the User Data Using : Post : http://localhost:5000/api/auth/getuser
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+        const userId = req.user.id
+        const user = await User.findById(userId).select('-password')
+        res.send(user);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("some error occured");
+      }
 })
 
 module.exports = router;
