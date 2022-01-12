@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
-const fetchuser = require('../middleware/fetchuser')
+const fetchuser = require('../middleware/fetchuser');
 const { body, validationResult } = require('express-validator');
 
 //Route 1 : Show Product Details using : Get : http://localhost:5000/api/product/showproduct
 router.get('/showproduct', fetchuser, async (req, res) => {
     try {
         const product = await Product.find({ user: req.user.id })
-        res.json(product); 
+        res.json(product);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("some error occured")
@@ -33,5 +33,50 @@ router.post('/addproduct', fetchuser, async (req, res) => {
     }
 })
 
+//Route 3 : Update Product using : Put : http://localhost:5000/api/product/updateproduct/:id
+router.put('/updateproduct/:id', fetchuser, async (req, res) => {
+    const { productname, description, price } = req.body;
+
+    try {
+        const newProduct = {};
+
+        if (productname) { newProduct.productname = productname }
+        if (description) { newProduct.description = description }
+        if (price) { newProduct.price = price }
+
+        let product = await Product.findById(req.params.id)
+
+        if (!product) { return res.status(404).send("Not Found") }
+
+        if (product.user.toString() !== req.user.id) {
+            return res.status(401).send("Access Denied")
+        }
+
+        product = await Product.findByIdAndUpdate(req.params.id, { $set: newProduct }, { new: true })
+        res.json({ product });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("some error occured")
+    }
+})
+
+//Route 4 : Delete Product using : Delete : http://localhost:5000/api/product/deleteproduct/:id
+router.delete('/deleteproduct/:id', fetchuser, async (req, res) => {
+    try {
+        let product = await Product.findById(req.params.id);
+
+        if (!product) { return res.status(404).send("Not Found") }
+
+        if (product.user.toString() !== req.user.id) {
+            return res.status(401).send("Access Denied")
+        }
+
+        product = await Product.findByIdAndDelete(req.params.id)
+        res.json({ "Success": "Product Deleted Successfully" });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("some error occured")
+    }
+})
 
 module.exports = router;
