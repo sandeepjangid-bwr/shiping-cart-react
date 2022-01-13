@@ -8,7 +8,8 @@ const CartSchema = new Schema({
     },
     productid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'product'
+        ref: 'product',
+        unique: true
     },
     product_name: {
         type: String,
@@ -24,6 +25,7 @@ const CartSchema = new Schema({
     },
     date: {
         type: Date,
+        default: Date.now
     }
 });
 
