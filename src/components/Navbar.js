@@ -19,6 +19,9 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className={`nav-link {location == /about? "/": active}`} to="/about">About</Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className={`nav-link {location == /addproduct? "/": active}`} to="/addproduct">Add Product</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
