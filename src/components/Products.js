@@ -62,7 +62,7 @@ const Products = () => {
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handleClick}  disabled={products.uproductname.length < 6 || products.udescription.length < 6}>Update Product</button>
+                            <button type="button" className="btn btn-primary" onClick={handleClick} disabled={products.uproductname.length < 6 || products.udescription.length < 6}>Update Product</button>
                         </div>
                     </div>
                 </div>

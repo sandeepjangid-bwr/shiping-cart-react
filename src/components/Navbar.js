@@ -23,6 +23,11 @@ const Navbar = () => {
                                 <Link className={`nav-link {location == /addproduct? "/": active}`} to="/addproduct">Add Product</Link>
                             </li>
                         </ul>
+                        <form className="d-flex">
+                            <Link className={`nav-link {location == /addproduct? "/": active}`} to="/cart"><button className="btn btn-primary" type="button">Cart</button></Link>
+                            <Link className={`nav-link {location == /addproduct? "/": active}`} to="/login"><button className="btn btn-primary" type="button">Login</button></Link>
+                            <Link className={`nav-link {location == /addproduct? "/": active}`} to="/signup"><button className="btn btn-primary" type="button">Signup</button></Link>
+                        </form>
                     </div>
                 </div>
             </nav>

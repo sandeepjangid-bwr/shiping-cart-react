@@ -12,8 +12,7 @@ const ProductState = (props) => {
         const response = await fetch(`${host}/api/product/showproduct`, {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZDI0ZDAzZTE0N2Y3MzM5YjAwOGJmIn0sImlhdCI6MTY0MTg5MDc5Nn0.YYKGOtmZJ5kWthzFQ3mfWXNnVkBeHbGemq7z67DMbA0"
+                'Content-Type': 'application/json'
             }
         });
         const json = await response.json();
@@ -24,8 +23,7 @@ const ProductState = (props) => {
         const response = await fetch(`${host}/api/product/addproduct`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZDI0ZDAzZTE0N2Y3MzM5YjAwOGJmIn0sImlhdCI6MTY0MTg5MDc5Nn0.YYKGOtmZJ5kWthzFQ3mfWXNnVkBeHbGemq7z67DMbA0"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ productname, description, price })
         });
@@ -39,8 +37,7 @@ const ProductState = (props) => {
         const response = await fetch(`${host}/api/product/updateproduct/${id}`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json',
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZDI0ZDAzZTE0N2Y3MzM5YjAwOGJmIn0sImlhdCI6MTY0MTg5MDc5Nn0.YYKGOtmZJ5kWthzFQ3mfWXNnVkBeHbGemq7z67DMbA0"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({ productname, description, price })
         });
@@ -66,8 +63,7 @@ const ProductState = (props) => {
         const response = await fetch(`${host}/api/product/deleteproduct/${id}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFkZDI0ZDAzZTE0N2Y3MzM5YjAwOGJmIn0sImlhdCI6MTY0MTg5MDc5Nn0.YYKGOtmZJ5kWthzFQ3mfWXNnVkBeHbGemq7z67DMbA0"
+                'Content-Type': 'application/json'
             }
         });
         const json = response.json();

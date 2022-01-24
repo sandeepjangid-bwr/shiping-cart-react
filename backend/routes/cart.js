@@ -14,10 +14,6 @@ router.post('/addcart/:id', fetchuser, async (req, res) => {
 
       if (!product) { return res.status(404).send("Not Found") }
 
-      if (product.user.toString() !== req.user.id) {
-         return res.status(401).send("Access Denied")
-      }
-
       const newProduct = new Cart({
          product_name: product.productname, productid: product.id, price: product.price, user: req.user.id
       })
@@ -42,16 +38,12 @@ router.get('/cartitem/', fetchuser, async (req, res) => {
    }
 })
 
-// Route 2 : show Cart Items Using : Get http://localhost:5000/api/cart/deletecartitem/:id
+// Route 2 : Delete Cart Items Using : Get http://localhost:5000/api/cart/deletecartitem/:id
 router.delete('/deletecartitem/:id', fetchuser, async (req, res) => {
    try {
       let product = await Cart.findById(req.params.id);
 
       if (!product) { return res.status(404).send("Not Found") }
-
-      if (product.user.toString() !== req.user.id) {
-         return res.status(401).send("Access Denied")
-      }
 
       product = await Cart.findByIdAndDelete(req.params.id)
       res.send("Success Cart Item Deleted Succesfully")
