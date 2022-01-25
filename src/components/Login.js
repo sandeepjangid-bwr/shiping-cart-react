@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom"
 
-const Login = () => {
+const Login = (props) => {
   let navigate = useNavigate();
 
-  const [ credential, setCredential ] = useState({email: "", password: ""})
+  const [credential, setCredential] = useState({ email: "", password: "" })
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -13,23 +13,24 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({email: credential.email, password: credential.password})
+      body: JSON.stringify({ email: credential.email, password: credential.password })
     })
 
     const json = await respone.json();
     console.log(json)
 
-    if (json.success){
+    if (json.success) {
       localStorage.setItem('token', json.authToken);
+      props.showAlert("Login Successfully", "success")
       navigate('/')
     }
-    else{
-      alert("Invalid Email or Password")
+    else {
+      props.showAlert("Invalid Email or Password", "danger")
     }
   }
 
   const onChange = (ev) => {
-    setCredential({...credential, [ev.target.name]: ev.target.value})
+    setCredential({ ...credential, [ev.target.name]: ev.target.value })
   }
 
   return <div className='container my-4'>

@@ -5,7 +5,7 @@ const Cartitem = (props) => {
   const context = useContext(cartContext)
   const { deleteCart } = context
 
-  const { cart } = props
+  const { cart, showAlert } = props
 
   return (
     <div className='container my-4'>
@@ -13,7 +13,7 @@ const Cartitem = (props) => {
         <div className="card-body">
           <h5 className="card-title">{cart.product_name}</h5>
           <p className="card-text"><i className="fas fa-rupee-sign mx-1" />{cart.price}</p>
-          <i className="fas fa-trash-alt mx-2" onClick={() => { deleteCart(cart._id) }}></i>
+          <i className="fas fa-trash-alt mx-2" onClick={() => { deleteCart(cart._id); showAlert("Cart Product Deleted Successfully","success") }}></i>
         </div>
       </div>
     </div>

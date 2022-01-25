@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import productContext from "../context/product/productContext"
 import Productitem from './Productitem'
 
-const Products = () => {
+const Products = (props) => {
     const context = useContext(productContext)
     const { product, getProduct, editProduct } = context
+    const { showAlert } = props
 
     useEffect(() => {
         getProduct()
@@ -23,6 +24,7 @@ const Products = () => {
     const handleClick = (ev) => {
         editProduct(products.id, products.uproductname, products.udescription, products.uprice);
         refClose.current.click();
+        props.showAlert("Product Updated Successfully", "success");
     }
 
     const onChange = (ev) => {
@@ -74,7 +76,7 @@ const Products = () => {
                     {product.length === 0 && 'No Products to Display'}
                 </div>
                 {product.map((product) => {
-                    return <Productitem key={product._id} product={product} updateProduct={updateProduct} />
+                    return <Productitem key={product._id} product={product} updateProduct={updateProduct} showAlert={showAlert} />
                 })}
             </div>
         </>

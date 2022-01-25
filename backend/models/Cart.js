@@ -8,8 +8,7 @@ const CartSchema = new Schema({
     },
     productid: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'product',
-        unique: true
+        ref: 'product'
     },
     product_name: {
         type: String,

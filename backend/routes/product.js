@@ -62,10 +62,6 @@ router.delete('/deleteproduct/:id', async (req, res) => {
 
         if (!product) { return res.status(404).send("Not Found") }
 
-        if (product.user.toString() !== req.user.id) {
-            return res.status(401).send("Access Denied")
-        }
-
         product = await Product.findByIdAndDelete(req.params.id)
         res.json({ "Success": "Product Deleted Successfully" });
     } catch (error) {

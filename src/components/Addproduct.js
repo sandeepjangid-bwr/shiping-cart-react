@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import productContext from "../context/product/productContext"
 
-const Addproduct = () => {
+const Addproduct = (props) => {
     const context = useContext(productContext)
     const { addProduct } = context;
 
@@ -10,6 +10,7 @@ const Addproduct = () => {
     const handleClick = (ev) => {
         ev.preventDefault();
         addProduct(product.productname, product.description, product.price);
+        props.showAlert("Product added Successfully", "success")
         setProduct({ productname: "", description: "", price: "" });
     }
 

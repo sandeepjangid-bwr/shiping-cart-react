@@ -4,8 +4,6 @@ const Cart = require('../models/Cart');
 const Product = require('../models/Product');
 const fetchuser = require('../middleware/fetchuser');
 const { body, validationResult } = require('express-validator');
-const { ResultWithContext } = require('express-validator/src/chain');
-
 
 // Route 1 : Add Products to Cart Using : Post http://localhost:5000/api/cart/addcart/:id
 router.post('/addcart/:id', fetchuser, async (req, res) => {

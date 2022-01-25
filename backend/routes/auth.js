@@ -10,7 +10,7 @@ const JWT_SECRET = 'lkjhgfdsa'
 // Route: 1 / Createing a User Using : Post : http://localhost:5000/api/auth/createuser
 router.post('/signup', [
     body('name', "Please Enter a Valid Name"),
-    body('phone', "Please Enter 10 Digit Phone No.").isLength({ min: 10 }),
+    body('phone', "Please Enter 10 Digit Phone No."),
     body('email', "Please Enter a Valid Email Address").isEmail(),
     body('password', "Password must be Atleast 6 character").isLength({ min: 6 })
 ], async (req, res) => {
@@ -22,7 +22,7 @@ router.post('/signup', [
     try {
         let user = await User.findOne({ email: req.body.email });
         if (user) {
-            return res.status(400).json({ error: "Already this email Exists use another one" })
+            return res.status(400).json({ success, error: "Already this email Exists use another one" })
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -44,7 +44,8 @@ router.post('/signup', [
 
         const authToken = jwt.sign(data, JWT_SECRET);
 
-        res.json({ authToken });
+        success = true;
+        res.json({ success, authToken });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("some error occured")
