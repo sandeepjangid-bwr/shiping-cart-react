@@ -1,8 +1,14 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
     let location = useLocation();
+    let navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/login');
+    }
     return (
         <div>
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -19,15 +25,17 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className={`nav-link {location == /about? "/": active}`} to="/about">About</Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className={`nav-link {location == /addproduct? "/": active}`} to="/addproduct">Add Product</Link>
-                            </li>
+                            {!localStorage.getItem('token') ? "" :
+                                <li className="nav-item">
+                                    <Link className={`nav-link {location == /addproduct? "/": active}`} to="/addproduct">Add Product</Link>
+                                </li>}
                         </ul>
-                        <form className="d-flex">
-                            <Link className={`nav-link {location == /addproduct? "/": active}`} to="/cart"><button className="btn btn-primary" type="button">Cart</button></Link>
-                            <Link className={`nav-link {location == /addproduct? "/": active}`} to="/login"><button className="btn btn-primary" type="button">Login</button></Link>
-                            <Link className={`nav-link {location == /addproduct? "/": active}`} to="/signup"><button className="btn btn-primary" type="button">Signup</button></Link>
-                        </form>
+                        {!localStorage.getItem('token') ? <form className="d-flex">
+                            <Link className={`nav-link {location == /login? "/": active}`} to="/login"><button className="btn btn-primary" type="button">Login</button></Link>
+                            <Link className={`nav-link {location == /signup? "/": active}`} to="/signup"><button className="btn btn-primary" type="button">Signup</button></Link>
+                        </form> : <Link className={`nav-link {location == /cart? "/": active}`} to="/cart"><button className="btn btn-primary" type="button">Cart</button></Link>}
+                        {!localStorage.getItem('token') ? <form className="d-flex">""
+                        </form> : <button onClick={handleLogout} className='btn btn-primary btn-sm'>Log Out</button>}
                     </div>
                 </div>
             </nav>

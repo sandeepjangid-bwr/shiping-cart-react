@@ -20,9 +20,10 @@ const Signup = (props) => {
     console.log(json)
 
     if (json.success) {
-      localStorage.setItem('token', json.authToken);
-      navigate('/login')
       props.showAlert("Account Created", "success")
+      localStorage.removeItem('token');
+      navigate('/login')
+      localStorage.setItem('token', json.authToken);
     }
     else {
       props.showAlert("Invalid Email", "danger")

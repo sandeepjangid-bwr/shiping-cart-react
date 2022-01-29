@@ -13,8 +13,9 @@ const Cart = (props) => {
 
     return <div>`
         <div className="container">
-                    {cart.length === 0 && 'No Carts to Display'}
-                </div>`
+            <h2>All Cart Products</h2>
+            {cart.length === 0 && 'No Carts to Display'}
+        </div>`
         {cart.map((cart) => {
             return <Cartitem key={cart._id} cart={cart} showAlert={props.showAlert} />
         })}

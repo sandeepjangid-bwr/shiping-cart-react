@@ -1,14 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import productContext from "../context/product/productContext"
 import Productitem from './Productitem'
+import { useNavigate, useNavigation } from 'react-router-dom'
 
 const Products = (props) => {
     const context = useContext(productContext)
     const { product, getProduct, editProduct } = context
     const { showAlert } = props
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getProduct()
+        if (localStorage.getItem('token')) {
+            getProduct()
+        }
+        else{
+            navigate('/login')
+        }
     }, [])
 
     const ref = useRef(null)

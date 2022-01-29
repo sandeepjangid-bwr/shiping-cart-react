@@ -20,20 +20,21 @@ const Login = (props) => {
     console.log(json)
 
     if (json.success) {
-      localStorage.setItem('token', json.authToken);
+      localStorage.setItem('authToken', json.authToken);
       props.showAlert("Login Successfully", "success")
       navigate('/')
     }
     else {
       props.showAlert("Invalid Email or Password", "danger")
     }
+
   }
 
   const onChange = (ev) => {
     setCredential({ ...credential, [ev.target.name]: ev.target.value })
   }
 
-  return <div className='container my-4'>
+  return <div className='container my-5'>
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">Email address</label>
